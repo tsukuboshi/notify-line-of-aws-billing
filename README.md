@@ -8,10 +8,6 @@
 
 ![diagram](./image/diagram.drawio.png)
 
-## 通知タイミング
-
-毎日、日本時間AM9時に通知します。
-
 ## SAMデプロイ方法
 
 1. 事前にParameter Storeに、LINEアクセストークンをSecure Stringで保存
