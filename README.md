@@ -26,8 +26,8 @@ sam build
 
 ``` bash
 sam deploy --parameter-overrides \
-  DefaultKmsArn=<KMSのAWSマネージド型キーにおけるaws/ssmのキーID> \
-  AccessTokenPath=<Parameter StoreにおけるLINEアクセストークンの名前>
+  DefaultKmsId=<KMSのAWSマネージド型キーにおけるaws/ssmのキーID> \
+  LineAccessToken=<Parameter StoreにおけるLINEアクセストークンの名前>
 ```
 
 ※`confirm_changeset`を有効化すると、途中で変更セットをデプロイするか確認されるので、内容問題なければ`y`を入力し続行

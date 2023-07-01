@@ -33,7 +33,7 @@ def lambda_handler(event, context) -> None:
 
 
 def get_access_token() -> str:
-    line_access_token_path = os.environ['ACCESS_TOKEN_PATH']
+    line_access_token_path = os.environ['LINE_ACCESS_TOKEN']
     print("Loading AWS Systems Manager Parameter Store values from " + line_access_token_path)
     req = urllib.request.Request('http://localhost:2773/systemsmanager/parameters/get/?name=' + line_access_token_path + '&withDecryption=true')
     req.add_header('X-Aws-Parameters-Secrets-Token', os.environ.get('AWS_SESSION_TOKEN'))

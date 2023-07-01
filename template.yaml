@@ -3,9 +3,9 @@ Transform: AWS::Serverless-2016-10-31
 Description: Notify Line every day of AWS billing
 
 Parameters:
-  DefaultKmsArn:
+  DefaultKmsId:
     Type: String
-  AccessTokenPath:
+  LineAccessToken:
     Type: String
 
 Resources:
@@ -23,7 +23,7 @@ Resources:
               Service: lambda.amazonaws.com
             Action: "sts:AssumeRole"
       Policies:
-        - PolicyName: "NotifyLineToBillingLambdaPolicy"
+        - PolicyName: policy-notify-line-of-aws-billing
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -44,7 +44,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
-                Resource: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/${DefaultKmsArn}"
+                Resource: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/${DefaultKmsId}"
 
 
   Function:
@@ -60,8 +60,7 @@ Resources:
         - arn:aws:lambda:ap-northeast-1:133490724326:layer:AWS-Parameters-and-Secrets-Lambda-Extension:4
       Environment:
         Variables:
-          ACCESS_TOKEN_PATH: !Ref AccessTokenPath
-          PARAMETERS_SECRETS_EXTENSION_HTTP_PORT: 2773
+          LINE_ACCESS_TOKEN: !Ref LineAccessToken
       Events:
         NotifyLine:
           Type: Schedule
