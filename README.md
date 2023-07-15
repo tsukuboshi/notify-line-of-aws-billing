@@ -1,4 +1,4 @@
-# NotifyLineOfAWSBilling
+# notify-line-of-aws-billing
 
 ## 概要
 
