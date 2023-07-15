@@ -10,27 +10,27 @@
 
 ## SAMデプロイ方法
 
-1. 事前に以下の内容でParameter Storeに、LINEアクセストークンを保存
+1. [LINE Notify公式サイト](https://notify-bot.line.me/ja/)にログインし、アクセストークンを発行  
+
+2. AWSコンソールにログインし、以下の設定内容で、AWS Systems Manager Parameter Storeに発行したアクセストークンを保存  
 
 |名前|種類|値|
 |---|---|---|
 |/notify-aws-billing/line-access-token|SecureString|<LINEアクセストークン>|
 
-2. 以下コマンドで、SAMアプリをビルド
+3. 以下コマンドで、SAMアプリをビルド
 
 ``` bash
 sam build
 ```
 
-3. 以下コマンドで、SAMアプリをデプロイ
+4. 以下コマンドで、SAMアプリをデプロイ
 
 ``` bash
 sam deploy --parameter-overrides \
   DefaultKmsId=`aws kms describe-key --key-id alias/aws/ssm --query 'KeyMetadata.KeyId' --output text` \
   LineAccessToken=/notify-aws-billing/line-access-token
 ```
-
-※`confirm_changeset`を有効化すると、途中で変更セットをデプロイするか確認されるので、内容問題なければ`y`を入力し続行
 
 ## 参考文献
 
