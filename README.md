@@ -10,7 +10,11 @@
 
 ## SAMデプロイ方法
 
-1. 事前にParameter Storeに、LINEアクセストークンをSecure Stringで保存
+1. 事前に以下の内容でParameter Storeに、LINEアクセストークンを保存
+
+|名前|種類|値|
+|---|---|---|
+|/notify-aws-billing/line-access-token|SecureString|<LINEアクセストークン>|
 
 2. 以下コマンドで、SAMアプリをビルド
 
@@ -22,8 +26,8 @@ sam build
 
 ``` bash
 sam deploy --parameter-overrides \
-  DefaultKmsId=<KMSのAWSマネージド型キーにおけるaws/ssmのキーID> \
-  LineAccessToken=<Parameter StoreにおけるLINEアクセストークンの名前>
+  DefaultKmsId=`aws kms describe-key --key-id alias/aws/ssm --query 'KeyMetadata.KeyId' --output text` \
+  LineAccessToken=/notify-aws-billing/line-access-token
 ```
 
 ※`confirm_changeset`を有効化すると、途中で変更セットをデプロイするか確認されるので、内容問題なければ`y`を入力し続行
